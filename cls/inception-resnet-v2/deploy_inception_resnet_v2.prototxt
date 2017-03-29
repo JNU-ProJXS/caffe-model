@@ -1,20 +1,9 @@
-layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "label"
-  transform_param {
-    mirror: false
-    crop_size: 299
-    mean_value: 104
-    mean_value: 117
-    mean_value: 123
-  }
-  data_param {
-    source: "imagenet_train_lmdb"
-    batch_size: 64
-    backend: LMDB
-  }
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 299 
+  dim: 299
 }
 layer {
   name: "conv1_3x3_s2"
@@ -25,22 +14,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -50,7 +32,8 @@ layer {
   bottom: "conv1_3x3_s2"
   top: "conv1_3x3_s2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -77,22 +60,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -102,7 +78,8 @@ layer {
   bottom: "conv2_3x3_s1"
   top: "conv2_3x3_s1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -129,22 +106,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -154,7 +124,8 @@ layer {
   bottom: "conv3_3x3_s1"
   top: "conv3_3x3_s1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -192,22 +163,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 80
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -217,7 +181,8 @@ layer {
   bottom: "conv4_3x3_reduce"
   top: "conv4_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -244,22 +209,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -269,7 +227,8 @@ layer {
   bottom: "conv4_3x3"
   top: "conv4_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -307,22 +266,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 96
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -332,7 +284,8 @@ layer {
   bottom: "conv5_1x1"
   top: "conv5_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -359,22 +312,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -384,7 +330,8 @@ layer {
   bottom: "conv5_5x5_reduce"
   top: "conv5_5x5_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -411,22 +358,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 2
     kernel_size: 5
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -436,7 +376,8 @@ layer {
   bottom: "conv5_5x5"
   top: "conv5_5x5"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -463,22 +404,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -488,7 +422,8 @@ layer {
   bottom: "conv5_3x3_reduce"
   top: "conv5_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -515,22 +450,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 96
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -540,7 +468,8 @@ layer {
   bottom: "conv5_3x3"
   top: "conv5_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -567,22 +496,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 96
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -592,7 +514,8 @@ layer {
   bottom: "conv5_3x3_2"
   top: "conv5_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -631,22 +554,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -656,7 +572,8 @@ layer {
   bottom: "conv5_1x1_ave"
   top: "conv5_1x1_ave"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -692,22 +609,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -717,7 +627,8 @@ layer {
   bottom: "inception_resnet_v2_a1_1x1"
   top: "inception_resnet_v2_a1_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -744,22 +655,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -769,7 +673,8 @@ layer {
   bottom: "inception_resnet_v2_a1_3x3_reduce"
   top: "inception_resnet_v2_a1_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -796,22 +701,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -821,7 +719,8 @@ layer {
   bottom: "inception_resnet_v2_a1_3x3"
   top: "inception_resnet_v2_a1_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -848,22 +747,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -873,7 +765,8 @@ layer {
   bottom: "inception_resnet_v2_a1_3x3_2_reduce"
   top: "inception_resnet_v2_a1_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -900,22 +793,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -925,7 +811,8 @@ layer {
   bottom: "inception_resnet_v2_a1_3x3_2"
   top: "inception_resnet_v2_a1_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -952,22 +839,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -977,7 +857,8 @@ layer {
   bottom: "inception_resnet_v2_a1_3x3_3"
   top: "inception_resnet_v2_a1_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1032,24 +913,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a1_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a1_up"
-  top: "inception_resnet_v2_a1_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a1_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a1_up"
-  top: "inception_resnet_v2_a1_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a1_residual_eltwise"
   type: "Eltwise"
   bottom: "stem_concat"
@@ -1057,6 +920,8 @@ layer {
   top: "inception_resnet_v2_a1_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17 
   }
 }
 layer {
@@ -1074,22 +939,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1099,7 +957,8 @@ layer {
   bottom: "inception_resnet_v2_a2_1x1"
   top: "inception_resnet_v2_a2_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1126,22 +985,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1151,7 +1003,8 @@ layer {
   bottom: "inception_resnet_v2_a2_3x3_reduce"
   top: "inception_resnet_v2_a2_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1178,22 +1031,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1203,7 +1049,8 @@ layer {
   bottom: "inception_resnet_v2_a2_3x3"
   top: "inception_resnet_v2_a2_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1230,22 +1077,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1255,7 +1095,8 @@ layer {
   bottom: "inception_resnet_v2_a2_3x3_2_reduce"
   top: "inception_resnet_v2_a2_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1282,22 +1123,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1307,7 +1141,8 @@ layer {
   bottom: "inception_resnet_v2_a2_3x3_2"
   top: "inception_resnet_v2_a2_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1334,22 +1169,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1359,7 +1187,8 @@ layer {
   bottom: "inception_resnet_v2_a2_3x3_3"
   top: "inception_resnet_v2_a2_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1414,24 +1243,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a2_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a2_up"
-  top: "inception_resnet_v2_a2_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a2_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a2_up"
-  top: "inception_resnet_v2_a2_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a2_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a1_residual_eltwise"
@@ -1439,6 +1250,8 @@ layer {
   top: "inception_resnet_v2_a2_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -1456,22 +1269,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1481,7 +1287,8 @@ layer {
   bottom: "inception_resnet_v2_a3_1x1"
   top: "inception_resnet_v2_a3_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1508,22 +1315,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1533,7 +1333,8 @@ layer {
   bottom: "inception_resnet_v2_a3_3x3_reduce"
   top: "inception_resnet_v2_a3_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1560,22 +1361,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1585,7 +1379,8 @@ layer {
   bottom: "inception_resnet_v2_a3_3x3"
   top: "inception_resnet_v2_a3_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1612,22 +1407,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1637,7 +1425,8 @@ layer {
   bottom: "inception_resnet_v2_a3_3x3_2_reduce"
   top: "inception_resnet_v2_a3_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1664,22 +1453,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1689,7 +1471,8 @@ layer {
   bottom: "inception_resnet_v2_a3_3x3_2"
   top: "inception_resnet_v2_a3_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1716,22 +1499,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1741,7 +1517,8 @@ layer {
   bottom: "inception_resnet_v2_a3_3x3_3"
   top: "inception_resnet_v2_a3_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1796,24 +1573,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a3_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a3_up"
-  top: "inception_resnet_v2_a3_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a3_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a3_up"
-  top: "inception_resnet_v2_a3_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a3_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a2_residual_eltwise"
@@ -1821,6 +1580,8 @@ layer {
   top: "inception_resnet_v2_a3_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -1838,22 +1599,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1863,7 +1617,8 @@ layer {
   bottom: "inception_resnet_v2_a4_1x1"
   top: "inception_resnet_v2_a4_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1890,22 +1645,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1915,7 +1663,8 @@ layer {
   bottom: "inception_resnet_v2_a4_3x3_reduce"
   top: "inception_resnet_v2_a4_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1942,22 +1691,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -1967,7 +1709,8 @@ layer {
   bottom: "inception_resnet_v2_a4_3x3"
   top: "inception_resnet_v2_a4_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -1994,22 +1737,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2019,7 +1755,8 @@ layer {
   bottom: "inception_resnet_v2_a4_3x3_2_reduce"
   top: "inception_resnet_v2_a4_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2046,22 +1783,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2071,7 +1801,8 @@ layer {
   bottom: "inception_resnet_v2_a4_3x3_2"
   top: "inception_resnet_v2_a4_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2098,22 +1829,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2123,7 +1847,8 @@ layer {
   bottom: "inception_resnet_v2_a4_3x3_3"
   top: "inception_resnet_v2_a4_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2178,24 +1903,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a4_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a4_up"
-  top: "inception_resnet_v2_a4_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a4_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a4_up"
-  top: "inception_resnet_v2_a4_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a4_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a3_residual_eltwise"
@@ -2203,6 +1910,8 @@ layer {
   top: "inception_resnet_v2_a4_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -2220,22 +1929,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2245,7 +1947,8 @@ layer {
   bottom: "inception_resnet_v2_a5_1x1"
   top: "inception_resnet_v2_a5_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2272,22 +1975,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2297,7 +1993,8 @@ layer {
   bottom: "inception_resnet_v2_a5_3x3_reduce"
   top: "inception_resnet_v2_a5_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2324,22 +2021,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2349,7 +2039,8 @@ layer {
   bottom: "inception_resnet_v2_a5_3x3"
   top: "inception_resnet_v2_a5_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2376,22 +2067,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2401,7 +2085,8 @@ layer {
   bottom: "inception_resnet_v2_a5_3x3_2_reduce"
   top: "inception_resnet_v2_a5_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2428,22 +2113,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2453,7 +2131,8 @@ layer {
   bottom: "inception_resnet_v2_a5_3x3_2"
   top: "inception_resnet_v2_a5_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2480,22 +2159,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2505,7 +2177,8 @@ layer {
   bottom: "inception_resnet_v2_a5_3x3_3"
   top: "inception_resnet_v2_a5_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2560,24 +2233,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a5_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a5_up"
-  top: "inception_resnet_v2_a5_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a5_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a5_up"
-  top: "inception_resnet_v2_a5_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a5_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a4_residual_eltwise"
@@ -2585,6 +2240,8 @@ layer {
   top: "inception_resnet_v2_a5_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -2602,22 +2259,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2627,7 +2277,8 @@ layer {
   bottom: "inception_resnet_v2_a6_1x1"
   top: "inception_resnet_v2_a6_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2654,22 +2305,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2679,7 +2323,8 @@ layer {
   bottom: "inception_resnet_v2_a6_3x3_reduce"
   top: "inception_resnet_v2_a6_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2706,22 +2351,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2731,7 +2369,8 @@ layer {
   bottom: "inception_resnet_v2_a6_3x3"
   top: "inception_resnet_v2_a6_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2758,22 +2397,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2783,7 +2415,8 @@ layer {
   bottom: "inception_resnet_v2_a6_3x3_2_reduce"
   top: "inception_resnet_v2_a6_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2810,22 +2443,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2835,7 +2461,8 @@ layer {
   bottom: "inception_resnet_v2_a6_3x3_2"
   top: "inception_resnet_v2_a6_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2862,22 +2489,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -2887,7 +2507,8 @@ layer {
   bottom: "inception_resnet_v2_a6_3x3_3"
   top: "inception_resnet_v2_a6_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -2942,24 +2563,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a6_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a6_up"
-  top: "inception_resnet_v2_a6_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a6_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a6_up"
-  top: "inception_resnet_v2_a6_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a6_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a5_residual_eltwise"
@@ -2967,6 +2570,8 @@ layer {
   top: "inception_resnet_v2_a6_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -2984,22 +2589,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3009,7 +2607,8 @@ layer {
   bottom: "inception_resnet_v2_a7_1x1"
   top: "inception_resnet_v2_a7_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3036,22 +2635,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3061,7 +2653,8 @@ layer {
   bottom: "inception_resnet_v2_a7_3x3_reduce"
   top: "inception_resnet_v2_a7_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3088,22 +2681,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3113,7 +2699,8 @@ layer {
   bottom: "inception_resnet_v2_a7_3x3"
   top: "inception_resnet_v2_a7_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3140,22 +2727,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3165,7 +2745,8 @@ layer {
   bottom: "inception_resnet_v2_a7_3x3_2_reduce"
   top: "inception_resnet_v2_a7_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3192,22 +2773,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3217,7 +2791,8 @@ layer {
   bottom: "inception_resnet_v2_a7_3x3_2"
   top: "inception_resnet_v2_a7_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3244,22 +2819,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3269,7 +2837,8 @@ layer {
   bottom: "inception_resnet_v2_a7_3x3_3"
   top: "inception_resnet_v2_a7_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3324,24 +2893,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a7_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a7_up"
-  top: "inception_resnet_v2_a7_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a7_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a7_up"
-  top: "inception_resnet_v2_a7_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a7_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a6_residual_eltwise"
@@ -3349,6 +2900,8 @@ layer {
   top: "inception_resnet_v2_a7_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -3366,22 +2919,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3391,7 +2937,8 @@ layer {
   bottom: "inception_resnet_v2_a8_1x1"
   top: "inception_resnet_v2_a8_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3418,22 +2965,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3443,7 +2983,8 @@ layer {
   bottom: "inception_resnet_v2_a8_3x3_reduce"
   top: "inception_resnet_v2_a8_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3470,22 +3011,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3495,7 +3029,8 @@ layer {
   bottom: "inception_resnet_v2_a8_3x3"
   top: "inception_resnet_v2_a8_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3522,22 +3057,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3547,7 +3075,8 @@ layer {
   bottom: "inception_resnet_v2_a8_3x3_2_reduce"
   top: "inception_resnet_v2_a8_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3574,22 +3103,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3599,7 +3121,8 @@ layer {
   bottom: "inception_resnet_v2_a8_3x3_2"
   top: "inception_resnet_v2_a8_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3626,22 +3149,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3651,7 +3167,8 @@ layer {
   bottom: "inception_resnet_v2_a8_3x3_3"
   top: "inception_resnet_v2_a8_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3706,24 +3223,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a8_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a8_up"
-  top: "inception_resnet_v2_a8_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a8_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a8_up"
-  top: "inception_resnet_v2_a8_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a8_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a7_residual_eltwise"
@@ -3731,6 +3230,8 @@ layer {
   top: "inception_resnet_v2_a8_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -3748,22 +3249,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3773,7 +3267,8 @@ layer {
   bottom: "inception_resnet_v2_a9_1x1"
   top: "inception_resnet_v2_a9_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3800,22 +3295,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3825,7 +3313,8 @@ layer {
   bottom: "inception_resnet_v2_a9_3x3_reduce"
   top: "inception_resnet_v2_a9_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3852,22 +3341,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3877,7 +3359,8 @@ layer {
   bottom: "inception_resnet_v2_a9_3x3"
   top: "inception_resnet_v2_a9_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3904,22 +3387,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3929,7 +3405,8 @@ layer {
   bottom: "inception_resnet_v2_a9_3x3_2_reduce"
   top: "inception_resnet_v2_a9_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -3956,22 +3433,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -3981,7 +3451,8 @@ layer {
   bottom: "inception_resnet_v2_a9_3x3_2"
   top: "inception_resnet_v2_a9_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4008,22 +3479,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4033,7 +3497,8 @@ layer {
   bottom: "inception_resnet_v2_a9_3x3_3"
   top: "inception_resnet_v2_a9_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4088,24 +3553,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a9_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a9_up"
-  top: "inception_resnet_v2_a9_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a9_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a9_up"
-  top: "inception_resnet_v2_a9_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a9_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a8_residual_eltwise"
@@ -4113,6 +3560,8 @@ layer {
   top: "inception_resnet_v2_a9_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -4130,22 +3579,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4155,7 +3597,8 @@ layer {
   bottom: "inception_resnet_v2_a10_1x1"
   top: "inception_resnet_v2_a10_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4182,22 +3625,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4207,7 +3643,8 @@ layer {
   bottom: "inception_resnet_v2_a10_3x3_reduce"
   top: "inception_resnet_v2_a10_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4234,22 +3671,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4259,7 +3689,8 @@ layer {
   bottom: "inception_resnet_v2_a10_3x3"
   top: "inception_resnet_v2_a10_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4286,22 +3717,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 32
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4311,7 +3735,8 @@ layer {
   bottom: "inception_resnet_v2_a10_3x3_2_reduce"
   top: "inception_resnet_v2_a10_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4338,22 +3763,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 48
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4363,7 +3781,8 @@ layer {
   bottom: "inception_resnet_v2_a10_3x3_2"
   top: "inception_resnet_v2_a10_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4390,22 +3809,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 64
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4415,7 +3827,8 @@ layer {
   bottom: "inception_resnet_v2_a10_3x3_3"
   top: "inception_resnet_v2_a10_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4470,24 +3883,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_a10_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_a10_up"
-  top: "inception_resnet_v2_a10_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_a10_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_a10_up"
-  top: "inception_resnet_v2_a10_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_a10_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_a9_residual_eltwise"
@@ -4495,6 +3890,8 @@ layer {
   top: "inception_resnet_v2_a10_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.17
   }
 }
 layer {
@@ -4512,22 +3909,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 384
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4537,7 +3927,8 @@ layer {
   bottom: "reduction_a_3x3"
   top: "reduction_a_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4564,22 +3955,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4589,7 +3973,8 @@ layer {
   bottom: "reduction_a_3x3_2_reduce"
   top: "reduction_a_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4616,22 +4001,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4641,7 +4019,8 @@ layer {
   bottom: "reduction_a_3x3_2"
   top: "reduction_a_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4668,22 +4047,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 384
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4693,7 +4065,8 @@ layer {
   bottom: "reduction_a_3x3_3"
   top: "reduction_a_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4739,22 +4112,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4764,7 +4130,8 @@ layer {
   bottom: "inception_resnet_v2_b1_1x1"
   top: "inception_resnet_v2_b1_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4791,22 +4158,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -4816,7 +4176,8 @@ layer {
   bottom: "inception_resnet_v2_b1_1x7_reduce"
   top: "inception_resnet_v2_b1_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4843,20 +4204,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -4870,7 +4224,8 @@ layer {
   bottom: "inception_resnet_v2_b1_1x7"
   top: "inception_resnet_v2_b1_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4897,20 +4252,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -4924,7 +4272,8 @@ layer {
   bottom: "inception_resnet_v2_b1_7x1"
   top: "inception_resnet_v2_b1_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -4978,24 +4327,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b1_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b1_up"
-  top: "inception_resnet_v2_b1_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b1_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b1_up"
-  top: "inception_resnet_v2_b1_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b1_residual_eltwise"
   type: "Eltwise"
   bottom: "reduction_a_concat"
@@ -5003,6 +4334,8 @@ layer {
   top: "inception_resnet_v2_b1_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -5020,22 +4353,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5045,7 +4371,8 @@ layer {
   bottom: "inception_resnet_v2_b2_1x1"
   top: "inception_resnet_v2_b2_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5072,22 +4399,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5097,7 +4417,8 @@ layer {
   bottom: "inception_resnet_v2_b2_1x7_reduce"
   top: "inception_resnet_v2_b2_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5124,20 +4445,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -5151,7 +4465,8 @@ layer {
   bottom: "inception_resnet_v2_b2_1x7"
   top: "inception_resnet_v2_b2_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5178,20 +4493,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -5205,7 +4513,8 @@ layer {
   bottom: "inception_resnet_v2_b2_7x1"
   top: "inception_resnet_v2_b2_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5259,24 +4568,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b2_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b2_up"
-  top: "inception_resnet_v2_b2_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b2_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b2_up"
-  top: "inception_resnet_v2_b2_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b2_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b1_residual_eltwise"
@@ -5284,6 +4575,8 @@ layer {
   top: "inception_resnet_v2_b2_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -5301,22 +4594,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5326,7 +4612,8 @@ layer {
   bottom: "inception_resnet_v2_b3_1x1"
   top: "inception_resnet_v2_b3_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5353,22 +4640,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5378,7 +4658,8 @@ layer {
   bottom: "inception_resnet_v2_b3_1x7_reduce"
   top: "inception_resnet_v2_b3_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5405,20 +4686,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -5432,7 +4706,8 @@ layer {
   bottom: "inception_resnet_v2_b3_1x7"
   top: "inception_resnet_v2_b3_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5459,20 +4734,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -5486,7 +4754,8 @@ layer {
   bottom: "inception_resnet_v2_b3_7x1"
   top: "inception_resnet_v2_b3_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5540,24 +4809,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b3_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b3_up"
-  top: "inception_resnet_v2_b3_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b3_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b3_up"
-  top: "inception_resnet_v2_b3_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b3_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b2_residual_eltwise"
@@ -5565,6 +4816,8 @@ layer {
   top: "inception_resnet_v2_b3_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -5582,22 +4835,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5607,7 +4853,8 @@ layer {
   bottom: "inception_resnet_v2_b4_1x1"
   top: "inception_resnet_v2_b4_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5634,22 +4881,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5659,7 +4899,8 @@ layer {
   bottom: "inception_resnet_v2_b4_1x7_reduce"
   top: "inception_resnet_v2_b4_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5686,20 +4927,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -5713,7 +4947,8 @@ layer {
   bottom: "inception_resnet_v2_b4_1x7"
   top: "inception_resnet_v2_b4_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5740,20 +4975,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -5767,7 +4995,8 @@ layer {
   bottom: "inception_resnet_v2_b4_7x1"
   top: "inception_resnet_v2_b4_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5821,24 +5050,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b4_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b4_up"
-  top: "inception_resnet_v2_b4_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b4_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b4_up"
-  top: "inception_resnet_v2_b4_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b4_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b3_residual_eltwise"
@@ -5846,6 +5057,8 @@ layer {
   top: "inception_resnet_v2_b4_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -5863,22 +5076,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5888,7 +5094,8 @@ layer {
   bottom: "inception_resnet_v2_b5_1x1"
   top: "inception_resnet_v2_b5_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5915,22 +5122,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -5940,7 +5140,8 @@ layer {
   bottom: "inception_resnet_v2_b5_1x7_reduce"
   top: "inception_resnet_v2_b5_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -5967,20 +5168,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -5994,7 +5188,8 @@ layer {
   bottom: "inception_resnet_v2_b5_1x7"
   top: "inception_resnet_v2_b5_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6021,20 +5216,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -6048,7 +5236,8 @@ layer {
   bottom: "inception_resnet_v2_b5_7x1"
   top: "inception_resnet_v2_b5_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6102,24 +5291,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b5_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b5_up"
-  top: "inception_resnet_v2_b5_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b5_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b5_up"
-  top: "inception_resnet_v2_b5_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b5_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b4_residual_eltwise"
@@ -6127,6 +5298,8 @@ layer {
   top: "inception_resnet_v2_b5_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -6144,22 +5317,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6169,7 +5335,8 @@ layer {
   bottom: "inception_resnet_v2_b6_1x1"
   top: "inception_resnet_v2_b6_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6196,22 +5363,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6221,7 +5381,8 @@ layer {
   bottom: "inception_resnet_v2_b6_1x7_reduce"
   top: "inception_resnet_v2_b6_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6248,20 +5409,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -6275,7 +5429,8 @@ layer {
   bottom: "inception_resnet_v2_b6_1x7"
   top: "inception_resnet_v2_b6_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6302,20 +5457,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -6329,7 +5477,8 @@ layer {
   bottom: "inception_resnet_v2_b6_7x1"
   top: "inception_resnet_v2_b6_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6383,24 +5532,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b6_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b6_up"
-  top: "inception_resnet_v2_b6_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b6_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b6_up"
-  top: "inception_resnet_v2_b6_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b6_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b5_residual_eltwise"
@@ -6408,6 +5539,8 @@ layer {
   top: "inception_resnet_v2_b6_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -6425,22 +5558,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6450,7 +5576,8 @@ layer {
   bottom: "inception_resnet_v2_b7_1x1"
   top: "inception_resnet_v2_b7_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6477,22 +5604,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6502,7 +5622,8 @@ layer {
   bottom: "inception_resnet_v2_b7_1x7_reduce"
   top: "inception_resnet_v2_b7_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6529,20 +5650,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -6556,7 +5670,8 @@ layer {
   bottom: "inception_resnet_v2_b7_1x7"
   top: "inception_resnet_v2_b7_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6583,20 +5698,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -6610,7 +5718,8 @@ layer {
   bottom: "inception_resnet_v2_b7_7x1"
   top: "inception_resnet_v2_b7_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6664,24 +5773,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b7_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b7_up"
-  top: "inception_resnet_v2_b7_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b7_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b7_up"
-  top: "inception_resnet_v2_b7_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b7_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b6_residual_eltwise"
@@ -6689,6 +5780,8 @@ layer {
   top: "inception_resnet_v2_b7_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -6706,22 +5799,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6731,7 +5817,8 @@ layer {
   bottom: "inception_resnet_v2_b8_1x1"
   top: "inception_resnet_v2_b8_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6758,22 +5845,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -6783,7 +5863,8 @@ layer {
   bottom: "inception_resnet_v2_b8_1x7_reduce"
   top: "inception_resnet_v2_b8_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6810,20 +5891,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -6837,7 +5911,8 @@ layer {
   bottom: "inception_resnet_v2_b8_1x7"
   top: "inception_resnet_v2_b8_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6864,20 +5939,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -6891,7 +5959,8 @@ layer {
   bottom: "inception_resnet_v2_b8_7x1"
   top: "inception_resnet_v2_b8_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -6945,24 +6014,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b8_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b8_up"
-  top: "inception_resnet_v2_b8_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b8_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b8_up"
-  top: "inception_resnet_v2_b8_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b8_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b7_residual_eltwise"
@@ -6970,6 +6021,8 @@ layer {
   top: "inception_resnet_v2_b8_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -6987,22 +6040,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7012,7 +6058,8 @@ layer {
   bottom: "inception_resnet_v2_b9_1x1"
   top: "inception_resnet_v2_b9_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7039,22 +6086,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7064,7 +6104,8 @@ layer {
   bottom: "inception_resnet_v2_b9_1x7_reduce"
   top: "inception_resnet_v2_b9_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7091,20 +6132,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -7118,7 +6152,8 @@ layer {
   bottom: "inception_resnet_v2_b9_1x7"
   top: "inception_resnet_v2_b9_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7145,20 +6180,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -7172,7 +6200,8 @@ layer {
   bottom: "inception_resnet_v2_b9_7x1"
   top: "inception_resnet_v2_b9_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7226,24 +6255,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b9_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b9_up"
-  top: "inception_resnet_v2_b9_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b9_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b9_up"
-  top: "inception_resnet_v2_b9_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b9_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b8_residual_eltwise"
@@ -7251,6 +6262,8 @@ layer {
   top: "inception_resnet_v2_b9_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -7268,22 +6281,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7293,7 +6299,8 @@ layer {
   bottom: "inception_resnet_v2_b10_1x1"
   top: "inception_resnet_v2_b10_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7320,22 +6327,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7345,7 +6345,8 @@ layer {
   bottom: "inception_resnet_v2_b10_1x7_reduce"
   top: "inception_resnet_v2_b10_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7372,20 +6373,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -7399,7 +6393,8 @@ layer {
   bottom: "inception_resnet_v2_b10_1x7"
   top: "inception_resnet_v2_b10_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7426,20 +6421,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -7453,7 +6441,8 @@ layer {
   bottom: "inception_resnet_v2_b10_7x1"
   top: "inception_resnet_v2_b10_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7507,24 +6496,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b10_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b10_up"
-  top: "inception_resnet_v2_b10_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b10_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b10_up"
-  top: "inception_resnet_v2_b10_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b10_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b9_residual_eltwise"
@@ -7532,6 +6503,8 @@ layer {
   top: "inception_resnet_v2_b10_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -7549,22 +6522,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7574,7 +6540,8 @@ layer {
   bottom: "inception_resnet_v2_b11_1x1"
   top: "inception_resnet_v2_b11_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7601,22 +6568,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7626,7 +6586,8 @@ layer {
   bottom: "inception_resnet_v2_b11_1x7_reduce"
   top: "inception_resnet_v2_b11_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7653,20 +6614,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -7680,7 +6634,8 @@ layer {
   bottom: "inception_resnet_v2_b11_1x7"
   top: "inception_resnet_v2_b11_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7707,20 +6662,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -7734,7 +6682,8 @@ layer {
   bottom: "inception_resnet_v2_b11_7x1"
   top: "inception_resnet_v2_b11_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7788,24 +6737,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b11_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b11_up"
-  top: "inception_resnet_v2_b11_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b11_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b11_up"
-  top: "inception_resnet_v2_b11_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b11_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b10_residual_eltwise"
@@ -7813,6 +6744,8 @@ layer {
   top: "inception_resnet_v2_b11_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -7830,22 +6763,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7855,7 +6781,8 @@ layer {
   bottom: "inception_resnet_v2_b12_1x1"
   top: "inception_resnet_v2_b12_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7882,22 +6809,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -7907,7 +6827,8 @@ layer {
   bottom: "inception_resnet_v2_b12_1x7_reduce"
   top: "inception_resnet_v2_b12_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7934,20 +6855,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -7961,7 +6875,8 @@ layer {
   bottom: "inception_resnet_v2_b12_1x7"
   top: "inception_resnet_v2_b12_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -7988,20 +6903,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -8015,7 +6923,8 @@ layer {
   bottom: "inception_resnet_v2_b12_7x1"
   top: "inception_resnet_v2_b12_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8069,24 +6978,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b12_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b12_up"
-  top: "inception_resnet_v2_b12_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b12_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b12_up"
-  top: "inception_resnet_v2_b12_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b12_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b11_residual_eltwise"
@@ -8094,6 +6985,8 @@ layer {
   top: "inception_resnet_v2_b12_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -8111,22 +7004,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8136,7 +7022,8 @@ layer {
   bottom: "inception_resnet_v2_b13_1x1"
   top: "inception_resnet_v2_b13_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8163,22 +7050,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8188,7 +7068,8 @@ layer {
   bottom: "inception_resnet_v2_b13_1x7_reduce"
   top: "inception_resnet_v2_b13_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8215,20 +7096,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -8242,7 +7116,8 @@ layer {
   bottom: "inception_resnet_v2_b13_1x7"
   top: "inception_resnet_v2_b13_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8269,20 +7144,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -8296,7 +7164,8 @@ layer {
   bottom: "inception_resnet_v2_b13_7x1"
   top: "inception_resnet_v2_b13_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8350,24 +7219,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b13_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b13_up"
-  top: "inception_resnet_v2_b13_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b13_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b13_up"
-  top: "inception_resnet_v2_b13_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b13_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b12_residual_eltwise"
@@ -8375,6 +7226,8 @@ layer {
   top: "inception_resnet_v2_b13_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -8392,22 +7245,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8417,7 +7263,8 @@ layer {
   bottom: "inception_resnet_v2_b14_1x1"
   top: "inception_resnet_v2_b14_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8444,22 +7291,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8469,7 +7309,8 @@ layer {
   bottom: "inception_resnet_v2_b14_1x7_reduce"
   top: "inception_resnet_v2_b14_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8496,20 +7337,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -8523,7 +7357,8 @@ layer {
   bottom: "inception_resnet_v2_b14_1x7"
   top: "inception_resnet_v2_b14_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8550,20 +7385,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -8577,7 +7405,8 @@ layer {
   bottom: "inception_resnet_v2_b14_7x1"
   top: "inception_resnet_v2_b14_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8631,24 +7460,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b14_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b14_up"
-  top: "inception_resnet_v2_b14_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b14_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b14_up"
-  top: "inception_resnet_v2_b14_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b14_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b13_residual_eltwise"
@@ -8656,6 +7467,8 @@ layer {
   top: "inception_resnet_v2_b14_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -8673,22 +7486,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8698,7 +7504,8 @@ layer {
   bottom: "inception_resnet_v2_b15_1x1"
   top: "inception_resnet_v2_b15_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8725,22 +7532,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8750,7 +7550,8 @@ layer {
   bottom: "inception_resnet_v2_b15_1x7_reduce"
   top: "inception_resnet_v2_b15_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8777,20 +7578,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -8804,7 +7598,8 @@ layer {
   bottom: "inception_resnet_v2_b15_1x7"
   top: "inception_resnet_v2_b15_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8831,20 +7626,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -8858,7 +7646,8 @@ layer {
   bottom: "inception_resnet_v2_b15_7x1"
   top: "inception_resnet_v2_b15_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -8912,24 +7701,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b15_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b15_up"
-  top: "inception_resnet_v2_b15_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b15_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b15_up"
-  top: "inception_resnet_v2_b15_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b15_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b14_residual_eltwise"
@@ -8937,6 +7708,8 @@ layer {
   top: "inception_resnet_v2_b15_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -8954,22 +7727,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -8979,7 +7745,8 @@ layer {
   bottom: "inception_resnet_v2_b16_1x1"
   top: "inception_resnet_v2_b16_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9006,22 +7773,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9031,7 +7791,8 @@ layer {
   bottom: "inception_resnet_v2_b16_1x7_reduce"
   top: "inception_resnet_v2_b16_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9058,20 +7819,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -9085,7 +7839,8 @@ layer {
   bottom: "inception_resnet_v2_b16_1x7"
   top: "inception_resnet_v2_b16_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9112,20 +7867,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -9139,7 +7887,8 @@ layer {
   bottom: "inception_resnet_v2_b16_7x1"
   top: "inception_resnet_v2_b16_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9193,24 +7942,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b16_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b16_up"
-  top: "inception_resnet_v2_b16_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b16_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b16_up"
-  top: "inception_resnet_v2_b16_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b16_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b15_residual_eltwise"
@@ -9218,6 +7949,8 @@ layer {
   top: "inception_resnet_v2_b16_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -9235,22 +7968,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9260,7 +7986,8 @@ layer {
   bottom: "inception_resnet_v2_b17_1x1"
   top: "inception_resnet_v2_b17_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9287,22 +8014,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9312,7 +8032,8 @@ layer {
   bottom: "inception_resnet_v2_b17_1x7_reduce"
   top: "inception_resnet_v2_b17_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9339,20 +8060,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -9366,7 +8080,8 @@ layer {
   bottom: "inception_resnet_v2_b17_1x7"
   top: "inception_resnet_v2_b17_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9393,20 +8108,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -9420,7 +8128,8 @@ layer {
   bottom: "inception_resnet_v2_b17_7x1"
   top: "inception_resnet_v2_b17_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9474,24 +8183,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b17_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b17_up"
-  top: "inception_resnet_v2_b17_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b17_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b17_up"
-  top: "inception_resnet_v2_b17_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b17_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b16_residual_eltwise"
@@ -9499,6 +8190,8 @@ layer {
   top: "inception_resnet_v2_b17_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -9516,22 +8209,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9541,7 +8227,8 @@ layer {
   bottom: "inception_resnet_v2_b18_1x1"
   top: "inception_resnet_v2_b18_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9568,22 +8255,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9593,7 +8273,8 @@ layer {
   bottom: "inception_resnet_v2_b18_1x7_reduce"
   top: "inception_resnet_v2_b18_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9620,20 +8301,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -9647,7 +8321,8 @@ layer {
   bottom: "inception_resnet_v2_b18_1x7"
   top: "inception_resnet_v2_b18_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9674,20 +8349,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -9701,7 +8369,8 @@ layer {
   bottom: "inception_resnet_v2_b18_7x1"
   top: "inception_resnet_v2_b18_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9755,24 +8424,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b18_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b18_up"
-  top: "inception_resnet_v2_b18_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b18_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b18_up"
-  top: "inception_resnet_v2_b18_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b18_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b17_residual_eltwise"
@@ -9780,6 +8431,8 @@ layer {
   top: "inception_resnet_v2_b18_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -9797,22 +8450,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9822,7 +8468,8 @@ layer {
   bottom: "inception_resnet_v2_b19_1x1"
   top: "inception_resnet_v2_b19_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9849,22 +8496,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -9874,7 +8514,8 @@ layer {
   bottom: "inception_resnet_v2_b19_1x7_reduce"
   top: "inception_resnet_v2_b19_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9901,20 +8542,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -9928,7 +8562,8 @@ layer {
   bottom: "inception_resnet_v2_b19_1x7"
   top: "inception_resnet_v2_b19_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -9955,20 +8590,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -9982,7 +8610,8 @@ layer {
   bottom: "inception_resnet_v2_b19_7x1"
   top: "inception_resnet_v2_b19_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10036,24 +8665,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b19_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b19_up"
-  top: "inception_resnet_v2_b19_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b19_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b19_up"
-  top: "inception_resnet_v2_b19_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b19_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b18_residual_eltwise"
@@ -10061,6 +8672,8 @@ layer {
   top: "inception_resnet_v2_b19_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -10078,22 +8691,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10103,7 +8709,8 @@ layer {
   bottom: "inception_resnet_v2_b20_1x1"
   top: "inception_resnet_v2_b20_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10130,22 +8737,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 128
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10155,7 +8755,8 @@ layer {
   bottom: "inception_resnet_v2_b20_1x7_reduce"
   top: "inception_resnet_v2_b20_1x7_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10182,20 +8783,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 160
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 3
@@ -10209,7 +8803,8 @@ layer {
   bottom: "inception_resnet_v2_b20_1x7"
   top: "inception_resnet_v2_b20_1x7"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10236,20 +8831,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 3
     pad_w: 0
@@ -10263,7 +8851,8 @@ layer {
   bottom: "inception_resnet_v2_b20_7x1"
   top: "inception_resnet_v2_b20_7x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10317,24 +8906,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_b20_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_b20_up"
-  top: "inception_resnet_v2_b20_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_b20_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_b20_up"
-  top: "inception_resnet_v2_b20_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_b20_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_b19_residual_eltwise"
@@ -10342,6 +8913,8 @@ layer {
   top: "inception_resnet_v2_b20_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.1
   }
 }
 layer {
@@ -10359,22 +8932,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10384,7 +8950,8 @@ layer {
   bottom: "reduction_b_3x3_reduce"
   top: "reduction_b_3x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10411,22 +8978,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 384
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10436,7 +8996,8 @@ layer {
   bottom: "reduction_b_3x3"
   top: "reduction_b_3x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10463,22 +9024,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10488,7 +9042,8 @@ layer {
   bottom: "reduction_b_3x3_2_reduce"
   top: "reduction_b_3x3_2_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10515,22 +9070,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 288
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10540,7 +9088,8 @@ layer {
   bottom: "reduction_b_3x3_2"
   top: "reduction_b_3x3_2"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10567,22 +9116,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10592,7 +9134,8 @@ layer {
   bottom: "reduction_b_3x3_3_reduce"
   top: "reduction_b_3x3_3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10619,22 +9162,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 288
+    bias_term: false
     pad: 1
     kernel_size: 3
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10644,7 +9180,8 @@ layer {
   bottom: "reduction_b_3x3_3"
   top: "reduction_b_3x3_3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10671,22 +9208,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 320
+    bias_term: false
     pad: 0
     kernel_size: 3
     stride: 2
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10696,7 +9226,8 @@ layer {
   bottom: "reduction_b_3x3_4"
   top: "reduction_b_3x3_4"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10743,22 +9274,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10768,7 +9292,8 @@ layer {
   bottom: "inception_resnet_v2_c1_1x1"
   top: "inception_resnet_v2_c1_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10795,22 +9320,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -10820,7 +9338,8 @@ layer {
   bottom: "inception_resnet_v2_c1_1x3_reduce"
   top: "inception_resnet_v2_c1_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10847,20 +9366,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -10874,7 +9386,8 @@ layer {
   bottom: "inception_resnet_v2_c1_1x3"
   top: "inception_resnet_v2_c1_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10901,20 +9414,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -10928,7 +9434,8 @@ layer {
   bottom: "inception_resnet_v2_c1_3x1"
   top: "inception_resnet_v2_c1_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -10982,24 +9489,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c1_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c1_up"
-  top: "inception_resnet_v2_c1_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c1_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c1_up"
-  top: "inception_resnet_v2_c1_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c1_residual_eltwise"
   type: "Eltwise"
   bottom: "reduction_b_concat"
@@ -11007,6 +9496,8 @@ layer {
   top: "inception_resnet_v2_c1_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -11024,22 +9515,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11049,7 +9533,8 @@ layer {
   bottom: "inception_resnet_v2_c2_1x1"
   top: "inception_resnet_v2_c2_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11076,22 +9561,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11101,7 +9579,8 @@ layer {
   bottom: "inception_resnet_v2_c2_1x3_reduce"
   top: "inception_resnet_v2_c2_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11128,20 +9607,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -11155,7 +9627,8 @@ layer {
   bottom: "inception_resnet_v2_c2_1x3"
   top: "inception_resnet_v2_c2_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11182,20 +9655,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -11209,7 +9675,8 @@ layer {
   bottom: "inception_resnet_v2_c2_3x1"
   top: "inception_resnet_v2_c2_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11263,24 +9730,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c2_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c2_up"
-  top: "inception_resnet_v2_c2_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c2_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c2_up"
-  top: "inception_resnet_v2_c2_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c2_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c1_residual_eltwise"
@@ -11288,6 +9737,8 @@ layer {
   top: "inception_resnet_v2_c2_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -11305,22 +9756,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11330,7 +9774,8 @@ layer {
   bottom: "inception_resnet_v2_c3_1x1"
   top: "inception_resnet_v2_c3_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11357,22 +9802,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11382,7 +9820,8 @@ layer {
   bottom: "inception_resnet_v2_c3_1x3_reduce"
   top: "inception_resnet_v2_c3_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11409,20 +9848,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -11436,7 +9868,8 @@ layer {
   bottom: "inception_resnet_v2_c3_1x3"
   top: "inception_resnet_v2_c3_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11463,20 +9896,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -11490,7 +9916,8 @@ layer {
   bottom: "inception_resnet_v2_c3_3x1"
   top: "inception_resnet_v2_c3_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11544,24 +9971,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c3_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c3_up"
-  top: "inception_resnet_v2_c3_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c3_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c3_up"
-  top: "inception_resnet_v2_c3_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c3_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c2_residual_eltwise"
@@ -11569,6 +9978,8 @@ layer {
   top: "inception_resnet_v2_c3_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -11586,22 +9997,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11611,7 +10015,8 @@ layer {
   bottom: "inception_resnet_v2_c4_1x1"
   top: "inception_resnet_v2_c4_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11638,22 +10043,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11663,7 +10061,8 @@ layer {
   bottom: "inception_resnet_v2_c4_1x3_reduce"
   top: "inception_resnet_v2_c4_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11690,20 +10089,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -11717,7 +10109,8 @@ layer {
   bottom: "inception_resnet_v2_c4_1x3"
   top: "inception_resnet_v2_c4_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11744,20 +10137,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -11771,7 +10157,8 @@ layer {
   bottom: "inception_resnet_v2_c4_3x1"
   top: "inception_resnet_v2_c4_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11825,24 +10212,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c4_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c4_up"
-  top: "inception_resnet_v2_c4_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c4_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c4_up"
-  top: "inception_resnet_v2_c4_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c4_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c3_residual_eltwise"
@@ -11850,6 +10219,8 @@ layer {
   top: "inception_resnet_v2_c4_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -11867,22 +10238,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11892,7 +10256,8 @@ layer {
   bottom: "inception_resnet_v2_c5_1x1"
   top: "inception_resnet_v2_c5_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11919,22 +10284,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -11944,7 +10302,8 @@ layer {
   bottom: "inception_resnet_v2_c5_1x3_reduce"
   top: "inception_resnet_v2_c5_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -11971,20 +10330,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -11998,7 +10350,8 @@ layer {
   bottom: "inception_resnet_v2_c5_1x3"
   top: "inception_resnet_v2_c5_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12025,20 +10378,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -12052,7 +10398,8 @@ layer {
   bottom: "inception_resnet_v2_c5_3x1"
   top: "inception_resnet_v2_c5_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12106,24 +10453,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c5_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c5_up"
-  top: "inception_resnet_v2_c5_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c5_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c5_up"
-  top: "inception_resnet_v2_c5_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c5_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c4_residual_eltwise"
@@ -12131,6 +10460,8 @@ layer {
   top: "inception_resnet_v2_c5_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -12148,22 +10479,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12173,7 +10497,8 @@ layer {
   bottom: "inception_resnet_v2_c6_1x1"
   top: "inception_resnet_v2_c6_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12200,22 +10525,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12225,7 +10543,8 @@ layer {
   bottom: "inception_resnet_v2_c6_1x3_reduce"
   top: "inception_resnet_v2_c6_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12252,20 +10571,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -12279,7 +10591,8 @@ layer {
   bottom: "inception_resnet_v2_c6_1x3"
   top: "inception_resnet_v2_c6_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12306,20 +10619,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -12333,7 +10639,8 @@ layer {
   bottom: "inception_resnet_v2_c6_3x1"
   top: "inception_resnet_v2_c6_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12387,24 +10694,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c6_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c6_up"
-  top: "inception_resnet_v2_c6_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c6_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c6_up"
-  top: "inception_resnet_v2_c6_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c6_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c5_residual_eltwise"
@@ -12412,6 +10701,8 @@ layer {
   top: "inception_resnet_v2_c6_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -12429,22 +10720,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12454,7 +10738,8 @@ layer {
   bottom: "inception_resnet_v2_c7_1x1"
   top: "inception_resnet_v2_c7_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12481,22 +10766,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12506,7 +10784,8 @@ layer {
   bottom: "inception_resnet_v2_c7_1x3_reduce"
   top: "inception_resnet_v2_c7_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12533,20 +10812,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -12560,7 +10832,8 @@ layer {
   bottom: "inception_resnet_v2_c7_1x3"
   top: "inception_resnet_v2_c7_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12587,20 +10860,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -12614,7 +10880,8 @@ layer {
   bottom: "inception_resnet_v2_c7_3x1"
   top: "inception_resnet_v2_c7_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12668,24 +10935,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c7_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c7_up"
-  top: "inception_resnet_v2_c7_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c7_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c7_up"
-  top: "inception_resnet_v2_c7_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c7_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c6_residual_eltwise"
@@ -12693,6 +10942,8 @@ layer {
   top: "inception_resnet_v2_c7_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -12710,22 +10961,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12735,7 +10979,8 @@ layer {
   bottom: "inception_resnet_v2_c8_1x1"
   top: "inception_resnet_v2_c8_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12762,22 +11007,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -12787,7 +11025,8 @@ layer {
   bottom: "inception_resnet_v2_c8_1x3_reduce"
   top: "inception_resnet_v2_c8_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12814,20 +11053,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -12841,7 +11073,8 @@ layer {
   bottom: "inception_resnet_v2_c8_1x3"
   top: "inception_resnet_v2_c8_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12868,20 +11101,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -12895,7 +11121,8 @@ layer {
   bottom: "inception_resnet_v2_c8_3x1"
   top: "inception_resnet_v2_c8_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -12949,24 +11176,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c8_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c8_up"
-  top: "inception_resnet_v2_c8_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c8_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c8_up"
-  top: "inception_resnet_v2_c8_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c8_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c7_residual_eltwise"
@@ -12974,6 +11183,8 @@ layer {
   top: "inception_resnet_v2_c8_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -12991,22 +11202,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -13016,7 +11220,8 @@ layer {
   bottom: "inception_resnet_v2_c9_1x1"
   top: "inception_resnet_v2_c9_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13043,22 +11248,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -13068,7 +11266,8 @@ layer {
   bottom: "inception_resnet_v2_c9_1x3_reduce"
   top: "inception_resnet_v2_c9_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13095,20 +11294,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -13122,7 +11314,8 @@ layer {
   bottom: "inception_resnet_v2_c9_1x3"
   top: "inception_resnet_v2_c9_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13149,20 +11342,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -13176,7 +11362,8 @@ layer {
   bottom: "inception_resnet_v2_c9_3x1"
   top: "inception_resnet_v2_c9_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13230,24 +11417,6 @@ layer {
   }
 }
 layer {
-  name: "inception_resnet_v2_c9_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c9_up"
-  top: "inception_resnet_v2_c9_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c9_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c9_up"
-  top: "inception_resnet_v2_c9_up"
-  scale_param {
-    bias_term: true
-  }
-}
-layer {
   name: "inception_resnet_v2_c9_residual_eltwise"
   type: "Eltwise"
   bottom: "inception_resnet_v2_c8_residual_eltwise"
@@ -13255,6 +11424,8 @@ layer {
   top: "inception_resnet_v2_c9_residual_eltwise"
   eltwise_param {
     operation: SUM
+    coeff: 1
+    coeff: 0.2
   }
 }
 layer {
@@ -13272,22 +11443,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -13297,7 +11461,8 @@ layer {
   bottom: "inception_resnet_v2_c10_1x1"
   top: "inception_resnet_v2_c10_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13324,22 +11489,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 192
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -13349,7 +11507,8 @@ layer {
   bottom: "inception_resnet_v2_c10_1x3_reduce"
   top: "inception_resnet_v2_c10_1x3_reduce"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13376,20 +11535,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 224
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 0
     pad_w: 1
@@ -13403,7 +11555,8 @@ layer {
   bottom: "inception_resnet_v2_c10_1x3"
   top: "inception_resnet_v2_c10_1x3"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13430,20 +11583,13 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 256
+    bias_term: false
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
     pad_h: 1
     pad_w: 0
@@ -13457,7 +11603,8 @@ layer {
   bottom: "inception_resnet_v2_c10_3x1"
   top: "inception_resnet_v2_c10_3x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13497,9 +11644,7 @@ layer {
   }
   convolution_param {
     num_output: 2080
-    pad: 0
     kernel_size: 1
-    stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
@@ -13508,24 +11653,6 @@ layer {
       type: "constant"
       value: 0.2
     }
-  }
-}
-layer {
-  name: "inception_resnet_v2_c10_up_bn"
-  type: "BatchNorm"
-  bottom: "inception_resnet_v2_c10_up"
-  top: "inception_resnet_v2_c10_up"
-  batch_norm_param {
-    use_global_stats: false
-  }
-}
-layer {
-  name: "inception_resnet_v2_c10_up_scale"
-  type: "Scale"
-  bottom: "inception_resnet_v2_c10_up"
-  top: "inception_resnet_v2_c10_up"
-  scale_param {
-    bias_term: true
   }
 }
 layer {
@@ -13547,22 +11674,15 @@ layer {
     lr_mult: 1
     decay_mult: 1
   }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
   convolution_param {
     num_output: 1536
+    bias_term: false
     pad: 0
     kernel_size: 1
     stride: 1
     weight_filler {
       type: "xavier"
       std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0.2
     }
   }
 }
@@ -13572,7 +11692,8 @@ layer {
   bottom: "conv6_1x1"
   top: "conv6_1x1"
   batch_norm_param {
-    use_global_stats: false
+    use_global_stats: true
+    eps: 0.001
   }
 }
 layer {
@@ -13634,32 +11755,8 @@ layer {
   }
 }
 layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
+  name: "prob"
+  type: "Softmax"
   bottom: "classifier"
-  bottom: "label"
-  top: "loss"
-}
-layer {
-  name: "accuracy_top1"
-  type: "Accuracy"
-  bottom: "classifier"
-  bottom: "label"
-  top: "accuracy_top1"
-  include {
-    phase: TEST
-  }
-}
-layer {
-  name: "accuracy_top5"
-  type: "Accuracy"
-  bottom: "classifier"
-  bottom: "label"
-  top: "accuracy_top5"
-  include {
-    phase: TEST
-  }
-  accuracy_param {
-    top_k: 5
-  }
+  top: "prob"
 }
